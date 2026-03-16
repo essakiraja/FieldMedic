@@ -333,7 +333,7 @@ Edit `src/config/firebase.js` and add email addresses to `ALLOWED_EMAILS`. Only 
 
 ## Submission Checklist
 
-- Public code repository — github.com/yourname/fieldmedic
+- Public code repository — github.com/essakiraja/fieldmedic
 - Architecture diagram — included above
 - Setup guide — this document
 - Demo video — link to video
@@ -345,7 +345,7 @@ Edit `src/config/firebase.js` and add email addresses to `ALLOWED_EMAILS`. Only 
 
 ## Bonus Points
 
-Blog post published with hashtag GeminiLiveAgentChallenge — link here
+Blog post published with hashtag GeminiLiveAgentChallenge — [link here](https://www.reddit.com/r/googlecloud/comments/1rvigln/built_a_little_emergency_ai_assistant_for_the/)
 
 Deployment automation scripts included — cloudbuild.yaml handles full CI/CD from source to Cloud Run
 
