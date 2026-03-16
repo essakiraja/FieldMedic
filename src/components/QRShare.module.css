@@ -1,0 +1,123 @@
+.wrapper {
+  width: 100%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-mid);
+  border-radius: var(--r-lg);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.headerIcon {
+  font-size: 20px;
+  color: var(--green-bright);
+}
+
+.title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.sub {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.severityDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-left: auto;
+}
+.severityDot.critical { background: var(--critical); animation: pulse-dot 1.5s infinite; }
+.severityDot.serious  { background: var(--serious); }
+.severityDot.moderate { background: var(--moderate); }
+.severityDot.minor    { background: var(--minor); }
+
+.qrWrapper {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0e1510;
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+
+.qrPlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--border-dim);
+  border-top-color: var(--green-bright);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.errorText {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.qrCanvas {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.qrCanvas.visible { opacity: 1; }
+
+.caseId {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+}
+
+.caseIdLabel {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.caseIdValue {
+  font-size: 14px;
+  color: var(--text-primary);
+  letter-spacing: 0.08em;
+}
+
+.copyBtn {
+  width: 100%;
+  padding: 10px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--r-sm);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all var(--fast);
+}
+.copyBtn:hover {
+  border-color: var(--border-mid);
+  color: var(--text-primary);
+}

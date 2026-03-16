@@ -1,0 +1,19 @@
+set GEMINI_API_KEY=AIzaSyBZ-g1QUQUbt-0fMnSV-YOO6cVEDqMfehI
+py -3.10-64 -m venv venv
+venv\Scripts\activate
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+uvicorn main:app --reload
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+
+
+
+gcloud run deploy fieldmedic-api `
+  --source ./backend `
+  --region us-central1 `
+  --allow-unauthenticated `
+  --set-env-vars "GCP_PROJECT_ID=medic-4053,GCP_REGION=us-central1,FIRESTORE_DB=(default),STORAGE_BUCKET=medic-4053-assets,GEMINI_API_KEY=AIzaSyBZ-g1QUQUbt-0fMnSV-YOO6cVEDqMfehI"
+  
+  
+  
+gcloud run deploy fieldmedic-api --source ./backend --region us-central1 --allow-unauthenticated --set-env-vars "GCP_PROJECT_ID=medic-4053,GCP_REGION=us-central1,FIRESTORE_DB=(default),STORAGE_BUCKET=medic-4053-assets,GEMINI_API_KEY=AIzaSyBZ-g1QUQUbt-0fMnSV-YOO6cVEDqMfehI"

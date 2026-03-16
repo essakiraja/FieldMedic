@@ -1,0 +1,456 @@
+/* GuidancePage */
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-base);
+  padding-bottom: 48px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-dim);
+}
+
+.backBtn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  cursor: pointer;
+  transition: color var(--fast);
+}
+.backBtn:hover { color: var(--text-primary); }
+
+.headerCenter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.offlineBadge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 3px 8px;
+  background: var(--moderate-dim);
+  color: var(--moderate);
+  border-radius: var(--r-sm);
+  border: 1px solid var(--moderate);
+}
+
+.stepCounter {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Emergency banner */
+.emergencyBanner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: var(--critical-dim);
+  border-bottom: 1px solid var(--critical);
+  font-size: 13px;
+  color: var(--critical);
+}
+.emergencyIcon { font-size: 16px; flex-shrink: 0; }
+.emergencyBanner span:nth-child(2) { flex: 1; }
+
+.callBtn {
+  padding: 6px 14px;
+  background: var(--critical);
+  color: #fff;
+  border-radius: var(--r-sm);
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity var(--fast);
+}
+.callBtn:hover { opacity: 0.85; }
+
+/* Step area */
+.stepArea {
+  flex: 0 0 auto;
+  padding: 24px 20px 0;
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.stepCard {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-mid);
+  border-radius: var(--r-xl);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  min-height: 200px;
+}
+
+.stepCard.critical {
+  border-color: var(--serious);
+  background: linear-gradient(135deg, var(--bg-surface), var(--serious-dim));
+}
+
+.stepNumber {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--green-dim);
+  border: 2px solid var(--green-bright);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--green-bright);
+}
+
+.stepCard.critical .stepNumber {
+  background: var(--serious-dim);
+  border-color: var(--serious);
+  color: var(--serious);
+}
+
+.criticalTag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--serious);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.stepText {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.replayBtn {
+  align-self: flex-start;
+  background: none;
+  border: 1px solid var(--border-dim);
+  border-radius: var(--r-sm);
+  color: var(--text-muted);
+  font-size: 12px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: all var(--fast);
+}
+.replayBtn:hover {
+  border-color: var(--border-mid);
+  color: var(--text-secondary);
+}
+
+/* Nav area */
+.navArea {
+  display: flex;
+  gap: 12px;
+  padding: 20px;
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.prevBtn {
+  padding: 16px 20px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--r-md);
+  color: var(--text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all var(--fast);
+}
+.prevBtn:disabled { opacity: 0.3; cursor: not-allowed; }
+.prevBtn:not(:disabled):hover {
+  border-color: var(--border-mid);
+  color: var(--text-primary);
+}
+
+.nextBtn {
+  flex: 1;
+  padding: 16px;
+  background: var(--green-bright);
+  border: none;
+  border-radius: var(--r-md);
+  color: var(--text-inverse);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity var(--fast), transform var(--fast);
+}
+.nextBtn:hover { opacity: 0.9; transform: translateY(-1px); }
+.nextBtn:active { transform: scale(0.98); }
+
+/* All steps list */
+.allSteps {
+  padding: 0 20px;
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.allStepsLabel {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.stepRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  text-align: left;
+  transition: all var(--fast);
+}
+.stepRow:hover { background: var(--bg-surface); border-color: var(--border-dim); }
+
+.stepRowActive {
+  background: var(--bg-overlay) !important;
+  border-color: var(--border-mid) !important;
+}
+
+.stepRowDone { opacity: 0.5; }
+
+.stepRowNum {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  min-width: 20px;
+  padding-top: 2px;
+}
+.stepRowActive .stepRowNum { color: var(--green-bright); }
+
+.stepRowText {
+  flex: 1;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.stepRowActive .stepRowText { color: var(--text-primary); }
+
+.stepRowCheck {
+  color: var(--green-bright);
+  font-size: 12px;
+  padding-top: 2px;
+}
+
+/* Loading screen */
+.loadingPage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  background: var(--bg-base);
+}
+
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--border-dim);
+  border-top-color: var(--green-bright);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+.loadingText {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Completed screen */
+.completedPage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 32px 24px;
+  background: var(--bg-base);
+  text-align: center;
+}
+
+.completedIcon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--green-dim);
+  border: 2px solid var(--green-bright);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: var(--green-bright);
+}
+
+.completedTitle {
+  font-size: 24px;
+  color: var(--text-primary);
+}
+
+.completedSub {
+  font-size: 14px;
+  color: var(--text-secondary);
+  max-width: 280px;
+  line-height: 1.6;
+}
+
+.bigCallBtn {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  padding: 18px;
+  background: var(--critical);
+  color: #fff;
+  border-radius: var(--r-md);
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  transition: opacity var(--fast);
+}
+.bigCallBtn:hover { opacity: 0.9; }
+
+.completedActions {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.secondaryBtn {
+  flex: 1;
+  padding: 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--r-md);
+  color: var(--text-secondary);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all var(--fast);
+}
+.secondaryBtn:hover {
+  border-color: var(--border-mid);
+  color: var(--text-primary);
+}
+
+/* Adaptive check-in */
+.checkInCard {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 20px;
+  background: var(--bg-overlay);
+  border: 1px solid var(--border-bright);
+  border-radius: var(--r-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: fade-up 0.25s both;
+}
+
+.checkInQuestion {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.checkInActions {
+  display: flex;
+  gap: 8px;
+}
+
+.checkInYes {
+  flex: 1;
+  padding: 12px;
+  background: var(--green-bright);
+  border: none;
+  border-radius: var(--r-md);
+  color: var(--text-inverse);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity var(--fast);
+}
+.checkInYes:hover { opacity: 0.9; }
+
+.checkInNo {
+  flex: 1;
+  padding: 12px;
+  background: var(--critical-dim);
+  border: 1px solid var(--critical);
+  border-radius: var(--r-md);
+  color: var(--critical);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity var(--fast);
+}
+.checkInNo:hover { opacity: 0.85; }
+
+.checkInSkip {
+  padding: 12px 16px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--r-md);
+  color: var(--text-muted);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all var(--fast);
+}
+.checkInSkip:hover { color: var(--text-secondary); border-color: var(--border-mid); }
+
+.adaptingRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 20px;
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+  color: var(--green-bright);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.adaptingSpinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--green-dim);
+  border-top-color: var(--green-bright);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}

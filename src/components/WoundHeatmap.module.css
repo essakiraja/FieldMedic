@@ -1,0 +1,35 @@
+.wrapper {
+  position: relative;
+  width: 100%;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-mid);
+}
+
+.canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.regionLabel {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  background: rgba(7, 11, 9, 0.75);
+  border: 1px solid var(--border-mid);
+  border-radius: var(--r-sm);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+  backdrop-filter: blur(4px);
+}
+
+.regionIcon {
+  color: var(--green-bright);
+  font-size: 13px;
+}

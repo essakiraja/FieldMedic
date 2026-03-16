@@ -1,0 +1,70 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+}
+
+.ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--size);
+  height: var(--size);
+  margin-left: calc(var(--size) / -2);
+  margin-top: calc(var(--size) / -2 - 24px); /* offset for label */
+  border-radius: 50%;
+  border: 2px solid var(--green-bright);
+  pointer-events: none;
+}
+
+.speakRing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--size);
+  height: var(--size);
+  margin-left: calc(var(--size) / -2);
+  margin-top: calc(var(--size) / -2 - 24px);
+  border-radius: 50%;
+  border: 2px solid var(--moderate);
+  pointer-events: none;
+}
+
+.orb {
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background: var(--bg-raised);
+  border: 2px solid var(--border-mid);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--mid), border-color var(--mid);
+  position: relative;
+  z-index: 1;
+}
+
+.orbListening {
+  background: var(--green-dim);
+  border-color: var(--green-bright);
+}
+
+.orbSpeaking {
+  background: var(--moderate-dim);
+  border-color: var(--moderate);
+}
+
+.icon { font-size: calc(var(--size) * 0.35); }
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  transition: color var(--fast);
+}
+
+.orbListening ~ .label,
+.wrapper:has(.orbListening) .label { color: var(--green-bright); }

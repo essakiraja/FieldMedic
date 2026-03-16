@@ -1,0 +1,166 @@
+/**
+ * FieldMedic — Case Page
+ *
+ * Opened when a paramedic scans the QR code.
+ * Shows full case history: severity, triage, guidance steps, transcript, location.
+ * Fetches live from Firestore via the backend API.
+ */
+
+import { useState, useEffect } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import client from '@/api/client'
+import SeverityBadge from '@/components/SeverityBadge'
+import styles from './CasePage.module.css'
+
+export default function CasePage() {
+  const { caseId }  = useParams()
+  const navigate    = useNavigate()
+  const [caseData, setCaseData] = useState(null)
+  const [loading, setLoading]   = useState(true)
+  const [error, setError]       = useState(null)
+
+  useEffect(() => {
+    if (!caseId) { navigate('/'); return }
+    fetchCase()
+  }, [caseId])
+
+  const fetchCase = async () => {
+    try {
+      const { data } = await client.get(`/api/case/${caseId}`)
+      setCaseData(data)
+    } catch (err) {
+      setError(err.status === 404 ? 'Case not found.' : 'Failed to load case.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (loading) return (
+    <div className={styles.centered}>
+      <div className={styles.spinner} />
+      <p className={styles.loadingText}>Loading case…</p>
+    </div>
+  )
+
+  if (error) return (
+    <div className={styles.centered}>
+      <p className={styles.errorText}>{error}</p>
+      <button className={styles.backBtn} onClick={() => navigate('/')}>← Return home</button>
+    </div>
+  )
+
+  const started = caseData?.started_at
+    ? new Date(caseData.started_at).toLocaleString()
+    : 'Unknown'
+
+  return (
+    <div className={styles.page}>
+      {/* Header */}
+      <div className={styles.header}>
+        <div className={styles.headerLogo}>
+          <span className={styles.logoIcon}>✚</span>
+          <span className={styles.logoText}>FieldMedic</span>
+        </div>
+        <span className={styles.headerBadge}>Case Report</span>
+      </div>
+
+      <div className={styles.content}>
+
+        {/* Case summary */}
+        <motion.div
+          className={styles.summaryCard}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <div className={styles.summaryTop}>
+            <SeverityBadge severity={caseData?.severity || 'unknown'} />
+            <span className={styles.caseIdBadge}>
+              {caseId?.slice(0, 8).toUpperCase()}
+            </span>
+          </div>
+          <h1 className={styles.injuryType}>
+            {caseData?.category || 'Unknown injury'}
+          </h1>
+          <p className={styles.startedAt}>Started: {started}</p>
+
+          {caseData?.location && (
+            <a
+              href={`https://maps.google.com/?q=${caseData.location.lat},${caseData.location.lng}`}
+              target="_blank"
+              rel="noreferrer"
+              className={styles.locationLink}
+            >
+              📍 View location on map →
+            </a>
+          )}
+        </motion.div>
+
+        {/* Guidance steps delivered */}
+        {caseData?.guidance_steps?.length > 0 && (
+          <Section title="Guidance delivered" index={1}>
+            <ol className={styles.stepsList}>
+              {caseData.guidance_steps.map((step, i) => (
+                <li
+                  key={i}
+                  className={`${styles.stepItem} ${step.is_critical ? styles.critical : ''}`}
+                >
+                  <span className={styles.stepNum}>{i + 1}</span>
+                  <span>{step.instruction}</span>
+                </li>
+              ))}
+            </ol>
+          </Section>
+        )}
+
+        {/* Conversation transcript */}
+        {caseData?.transcripts?.length > 0 && (
+          <Section title="Conversation" index={2}>
+            <div className={styles.transcript}>
+              {caseData.transcripts.map((entry, i) => (
+                <div key={i} className={`${styles.entry} ${styles[entry.role]}`}>
+                  <span className={styles.entryRole}>{entry.role}</span>
+                  <p className={styles.entryText}>{entry.text}</p>
+                </div>
+              ))}
+            </div>
+          </Section>
+        )}
+
+        {/* Images */}
+        {caseData?.images?.filter((img) => img.storage_url).length > 0 && (
+          <Section title="Images captured" index={3}>
+            <div className={styles.imageGrid}>
+              {caseData.images
+                .filter((img) => img.storage_url)
+                .map((img, i) => (
+                  <a key={i} href={img.storage_url} target="_blank" rel="noreferrer">
+                    <img src={img.storage_url} alt={`Wound ${i + 1}`} className={styles.caseImage} />
+                  </a>
+                ))}
+            </div>
+          </Section>
+        )}
+
+        {/* Footer note */}
+        <p className={styles.footer}>
+          Generated by FieldMedic AI Emergency Agent · {started}
+        </p>
+      </div>
+    </div>
+  )
+}
+
+function Section({ title, children, index }) {
+  return (
+    <motion.div
+      className={styles.section}
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.08 }}
+    >
+      <h2 className={styles.sectionTitle}>{title}</h2>
+      {children}
+    </motion.div>
+  )
+}

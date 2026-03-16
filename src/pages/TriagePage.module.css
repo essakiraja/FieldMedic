@@ -1,0 +1,365 @@
+/* TriagePage */
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-base);
+  padding-bottom: 32px;
+}
+
+/* Top bar */
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-dim);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.backBtn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 13px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  transition: color var(--fast);
+}
+.backBtn:hover { color: var(--text-primary); }
+
+.topTitle {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.modeTabs {
+  display: flex;
+  gap: 4px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--r-md);
+  padding: 3px;
+}
+
+.modeTab {
+  padding: 6px 14px;
+  border: none;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all var(--fast);
+}
+.modeTab.active {
+  background: var(--bg-overlay);
+  color: var(--text-primary);
+}
+
+/* Camera view */
+.cameraView, .voiceView {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 24px 20px;
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.videoWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background: var(--bg-surface);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-dim);
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Targeting corners overlay */
+.targetOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.targetCorner {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-color: var(--green-bright);
+  border-style: solid;
+  opacity: 0.8;
+}
+
+.targetCorner[data-pos="tl"] { top: 16px;    left: 16px;    border-width: 2px 0 0 2px; }
+.targetCorner[data-pos="tr"] { top: 16px;    right: 16px;   border-width: 2px 2px 0 0; }
+.targetCorner[data-pos="bl"] { bottom: 16px; left: 16px;    border-width: 0 0 2px 2px; }
+.targetCorner[data-pos="br"] { bottom: 16px; right: 16px;   border-width: 0 2px 2px 0; }
+
+.cameraHint {
+  position: absolute;
+  bottom: 12px;
+  left: 0; right: 0;
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+  font-family: var(--font-mono);
+}
+
+.cameraError {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: var(--bg-surface);
+  padding: 24px;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+.cameraError button {
+  padding: 8px 20px;
+  background: var(--bg-overlay);
+  border: 1px solid var(--border-mid);
+  border-radius: var(--r-sm);
+  color: var(--text-primary);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* Preview */
+.previewWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-mid);
+}
+.preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.analyzingOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(7, 11, 9, 0.75);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-family: var(--font-mono);
+}
+
+/* Spinner */
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--border-mid);
+  border-top-color: var(--green-bright);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Result card */
+.resultCard {
+  width: 100%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-mid);
+  border-radius: var(--r-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.observation {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.dangers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.dangerTag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--serious);
+  background: var(--serious-dim);
+  border: 1px solid var(--serious);
+  padding: 3px 8px;
+  border-radius: var(--r-sm);
+}
+
+.firstAction {
+  background: var(--bg-overlay);
+  border-left: 3px solid var(--green-bright);
+  padding: 12px 16px;
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+}
+.firstActionLabel {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--green-bright);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 6px;
+}
+.firstActionText {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+/* Description input */
+.descriptionRow { width: 100%; }
+.descriptionInput {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--r-md);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 14px;
+  transition: border-color var(--fast);
+}
+.descriptionInput:focus {
+  outline: none;
+  border-color: var(--border-bright);
+}
+.descriptionInput::placeholder { color: var(--text-muted); }
+
+/* Actions row */
+.actions {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* Shutter button */
+.captureBtn {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 3px solid var(--green-bright);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.captureRing {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid rgba(61, 220, 132, 0.3);
+}
+.captureDot {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--green-bright);
+  transition: transform var(--fast);
+}
+.captureBtn:active .captureDot { transform: scale(0.9); }
+
+.primaryBtn {
+  flex: 1;
+  padding: 16px;
+  background: var(--green-bright);
+  border: none;
+  border-radius: var(--r-md);
+  color: var(--text-inverse);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity var(--fast), transform var(--fast);
+}
+.primaryBtn:hover { opacity: 0.9; transform: translateY(-1px); }
+.primaryBtn:active { transform: scale(0.98); }
+
+.secondaryBtn {
+  padding: 16px 20px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border-mid);
+  border-radius: var(--r-md);
+  color: var(--text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Voice mode */
+.voicePrompt {
+  text-align: center;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.voicePrompt p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.listeningText {
+  color: var(--green-bright) !important;
+  font-family: var(--font-mono);
+  animation: pulse-dot 1.5s infinite;
+}
+.transcriptText { color: var(--text-primary) !important; font-size: 15px !important; }
+
+.voiceInput {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--r-md);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 14px;
+  resize: none;
+  transition: border-color var(--fast);
+}
+.voiceInput:focus { outline: none; border-color: var(--border-bright); }
+.voiceInput::placeholder { color: var(--text-muted); }
+
+.analyzingRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
