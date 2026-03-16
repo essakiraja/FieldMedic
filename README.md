@@ -345,7 +345,7 @@ Edit `src/config/firebase.js` and add email addresses to `ALLOWED_EMAILS`. Only 
 
 ## Bonus Points
 
-Blog post published with hashtag GeminiLiveAgentChallenge — [link here](https://www.reddit.com/r/googlecloud/comments/1rvigln/built_a_little_emergency_ai_assistant_for_the/)
+Blog post published with hashtag GeminiLiveAgentChallenge — https://www.reddit.com/r/GeminiAI/comments/1rvisgc/built_a_little_emergency_ai_assistant_for_the/
 
 Deployment automation scripts included — cloudbuild.yaml handles full CI/CD from source to Cloud Run
 
